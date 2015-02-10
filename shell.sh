@@ -2,11 +2,11 @@
 . helpers.sh
 . stat.sh
 
-CREATE_USER "pavlo" "pwdExercise"
-SAVE_STAT
-UPDATE "cdExercise"
-SAVE_STAT
-READ_LOG "pavlo"
+# CREATE_USER "pavlo" "pwdExercise"
+# SAVE_STAT
+# UPDATE "cdExercise"
+# SAVE_STAT
+# READ_LOG "pavlo"
 
 # exrcise for learning mkdir
 function mkdirExercise {
@@ -18,10 +18,12 @@ function mkdirExercise {
 	read -p "  -> " input
 
 	function success {
-		mkdir ./firstFolder
+		# mkdir ./firstFolder
 		echo -e "\033[0;32mCongratulations! Now you create your first folder!"
 		echo -e "\033[0;33mmkdir\033[0m command is used for creating folders"
 		echo -e "So in our case we created folder with name 'firstFolder'"
+		UPDATE "cdExercise"
+		SAVE_STAT
 		next "cdExercise"
 	}
 	function error {
@@ -43,9 +45,11 @@ function cdExercise {
 	read -p "  ->  " input;
 
 	function success {
-		cd ./firstFolder
+		# cd ./firstFolder
 		echo -e "\033[0;32mCool. Now you in firstFolder, that you created before"
-		next touchExercise
+		UPDATE "touchExercise"
+		SAVE_STAT
+		next "touchExercise"
 	}
 	function error {
 		restarting "cdExercise"
@@ -65,7 +69,9 @@ function touchExercise {
 
 	function success {
 		echo -e "\033[0;32mCool"
-		touch ./sample.txt
+		# touch ./sample.txt
+		UPDATE "rmExercise"
+		SAVE_STAT
 		next "rmExercise"
 	}
 	function error {
@@ -89,7 +95,7 @@ function rmExercise {
 
 	function success {
 		echo -e "\033[0;32mCool. You made it!"
-		rm ./sample.txt
+		# rm ./sample.txt
 		next "pwdExercise"
 	}
 	function error {
@@ -112,7 +118,7 @@ function pwdExercise {
 	function success {
 		echo -e "\033[0mYour path : $(pwd)"
 		echo -e "\033[0;32mNice! You made it!"
-		rm ./sample.txt
+		# rm ./sample.txt
 	}
 	function error {
 		restarting "pwdExercise"
@@ -161,7 +167,20 @@ function initialize {
 	echo -e "\033[1;35mDuring series of 10 tutorials you will learn basics of working with your shell"
 	echo -e "So, Lets start!  \033[0m"
 	echo -e "Type :q when you would like to exit script or :h for view script version  \033[0m"
-	mkdirExercise
+
+	function success {
+		local state=$1
+		success_echo "Resuming latest game state ... "
+		next "$state"
+	}
+
+	function error {
+		CREATE_USER "$USER"
+		SHOW_ME
+		next "mkdirExercise"
+	}
+
+	CHECK_LOG "$USER" success error
 }
 
-# initialize
+initialize

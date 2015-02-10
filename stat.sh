@@ -8,7 +8,7 @@ function CREATE_USER {
 
 	user="$USER" 
 
-	if [ "$1" ]; then
+	if [ -e "$1" ]; then
 		user="$1"
 	fi
 
@@ -24,7 +24,7 @@ function CREATE_USER {
 # show user info
 function SHOW_ME {
 
-	echo "Your are: $user"
+	echo "$user"
 	echo "$date"
 	echo "$shell"
 	echo "$progress"
@@ -44,8 +44,6 @@ function UPDATE {
 function SAVE_STAT {
 
 	local FILE="$HOME/loger-$user.log"
-
-	echo "writing to log file..."
 	for f in $FILE; do
 		echo "$date" > $FILE
 		echo "$user" >> "$FILE"
@@ -65,11 +63,24 @@ function READ_LOG {
 			    LOG_READ=$(echo "$txt")
 			done < "$filename"
 
-			echo "Current progress : $LOG_READ"
 		else
 			error_echo "uncorrect user name"
 		fi
 	else
 		error_echo "None for user name"
+	fi
+}
+
+function CHECK_LOG {
+
+	local user=$1
+	local success=$2
+	local error=$3
+
+	if [ -e "$HOME/loger-$user.log" ]; then
+		READ_LOG "$user"
+		success "$LOG_READ"
+	else
+		error
 	fi
 }
