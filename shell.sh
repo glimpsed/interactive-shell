@@ -1,3 +1,16 @@
+
+. helpers.sh
+. stat.sh
+
+CREATE_USER "newOne"
+SHOW_ME
+UPDATE "cdExercise"
+SHOW_ME
+UPDATE "OH ITS WORK NICE"
+
+SAVE_STAT
+
+
 # exrcise for learning mkdir
 function mkdirExercise {
 
@@ -145,6 +158,17 @@ function restarting {
 	$state
 }
 
+function fancy_echo {
+	local ftype=$1
+	local text=$2
+
+	case $ftype in 
+		success ) ;;
+		error ) ;;
+		*) echo "error non type"
+	esac
+}
+
 # inital function
 function initialize {
 	echo -e "\033[1;35mHolla, \033[0;33m$USER!\033[1;35m Welcome to interactive shell! \033[0m"
@@ -154,4 +178,4 @@ function initialize {
 	mkdirExercise
 }
 
-initialize
+# initialize
