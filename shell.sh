@@ -2,14 +2,15 @@
 . helpers.sh
 . stat.sh
 
-CREATE_USER "newOne"
-SHOW_ME
-UPDATE "cdExercise"
-SHOW_ME
-UPDATE "OH ITS WORK NICE"
+# # CREATE_USER "newOne"
+# SHOW_ME
+# UPDATE "cdExercise"
+# SHOW_ME
+# UPDATE "OH ITS WORK NICE"
 
-SAVE_STAT
+# SAVE_STAT
 
+READ_LOG
 
 # exrcise for learning mkdir
 function mkdirExercise {
@@ -156,17 +157,6 @@ function restarting {
 	local state=$1
 	echo -e "\033[0;31mUncorrect input. Please, try again\033[0m"
 	$state
-}
-
-function fancy_echo {
-	local ftype=$1
-	local text=$2
-
-	case $ftype in 
-		success ) ;;
-		error ) ;;
-		*) echo "error non type"
-	esac
 }
 
 # inital function
