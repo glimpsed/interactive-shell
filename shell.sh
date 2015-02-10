@@ -2,15 +2,11 @@
 . helpers.sh
 . stat.sh
 
-# # CREATE_USER "newOne"
-# SHOW_ME
-# UPDATE "cdExercise"
-# SHOW_ME
-# UPDATE "OH ITS WORK NICE"
-
-# SAVE_STAT
-
-READ_LOG
+CREATE_USER "pavlo" "pwdExercise"
+SAVE_STAT
+UPDATE "cdExercise"
+SAVE_STAT
+READ_LOG "pavlo"
 
 # exrcise for learning mkdir
 function mkdirExercise {

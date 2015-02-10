@@ -2,7 +2,6 @@
 user="none"
 shell="unknown"
 date="none"
-FILE="$HOME/loger.log"
 
 # construct new user
 function CREATE_USER {
@@ -44,17 +43,33 @@ function UPDATE {
 # save statistic to ol file
 function SAVE_STAT {
 
+	local FILE="$HOME/loger-$user.log"
+
 	echo "writing to log file..."
 	for f in $FILE; do
-		echo "date:$date" > $FILE
-		echo "name:$user" >> "$FILE"
-		echo "progress:$progress" >> $FILE
-		echo "shell:$shell" >> "$FILE"
+		echo "$date" > $FILE
+		echo "$user" >> "$FILE"
+		echo "$shell" >> $FILE
+		echo "$progress" >> "$FILE"
 	done
 }
 
 function READ_LOG {
-	for f in $FILE; do
-		echo "Text : " << $FILE
-	done
+	if [ "$1" ]; then	
+		local user=$1
+		local filename="$HOME/loger-$user.log"
+		if [ -e "$filename" ]; then		
+			while read -r line
+			do
+			    txt=$line
+			    LOG_READ=$(echo "$txt")
+			done < "$filename"
+
+			echo "Current progress : $LOG_READ"
+		else
+			error_echo "uncorrect user name"
+		fi
+	else
+		error_echo "None for user name"
+	fi
 }
