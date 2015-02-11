@@ -164,6 +164,9 @@ function mvExercise {
 
 	function success {
 		success_echo "Yeh. All right!"
+		UPDATE "finish"
+		SAVE_STAT
+		next "finish"
 	}
 
 	function error {
@@ -198,6 +201,21 @@ function checkInput {
 		echo -e "\033[0mauthor: Oleh Kuchuk version: 1.0"
 	else
 		$error
+	fi
+}
+
+function finish {
+
+	local input
+
+	success_echo "End of game... type :restart  for restarting game"
+	read -p "  -> " input
+
+	if [ "$input" = ":restart" ]; then
+		success_echo "restarting..."
+		next "initialize"
+	else
+		error_echo "some errors"
 	fi
 }
 
