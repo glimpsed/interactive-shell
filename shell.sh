@@ -2,11 +2,6 @@
 . helpers.sh
 . stat.sh
 
-# CREATE_USER "pavlo" "pwdExercise"
-# SAVE_STAT
-# UPDATE "cdExercise"
-# SAVE_STAT
-# READ_LOG "pavlo"
 
 # exrcise for learning mkdir
 function mkdirExercise {
@@ -60,6 +55,7 @@ function cdExercise {
 
 # exercise for learning touch command
 function touchExercise {
+
 	local input
 	local correct="touch sample.txt"
 
@@ -96,6 +92,8 @@ function rmExercise {
 	function success {
 		echo -e "\033[0;32mCool. You made it!"
 		# rm ./sample.txt
+		UPDATE "pwdExercise"
+		SAVE_STAT
 		next "pwdExercise"
 	}
 	function error {
@@ -106,6 +104,7 @@ function rmExercise {
 }
 
 function pwdExercise {
+
 	local input
 	local correct="pwd"
 
@@ -116,8 +115,11 @@ function pwdExercise {
 	read -p "  -> " input
 
 	function success {
-		echo -e "\033[0mYour path : $(pwd)"
-		echo -e "\033[0;32mNice! You made it!"
+		echo "Your path : $(pwd)"
+		success_echo "Nice you made it!"
+		UPDATE "cpExercise"
+		SAVE_STAT
+		next "cpExercise"
 		# rm ./sample.txt
 	}
 	function error {
@@ -127,8 +129,53 @@ function pwdExercise {
 	checkInput "$input" "$correct" success error
 }
 
+function cpExercise {
+
+	local input
+	local correct="cp sample.txt sample-copy.txt"
+
+	echo -e "\033[0mLets try cp command,"
+	echo -e "\033[0;36mType 'cp sample.txt sample-copy.txt'"
+	read -p "  -> " input
+
+	function success {
+		success_echo "Yeh. All right!"
+		UPDATE "mvExercise"
+		SAVE_STAT
+		next "mvExercise"
+	}
+
+	function error {
+		restarting "cpExercise"
+	}
+
+	checkInput "$input" "$correct" success error
+}
+
+function mvExercise {
+
+	local input
+	local correct="mkdir testFolder; mv sample.txt ./testFolder"
+
+	echo -e "\033[0mLets try mv command"
+	echo -e "\033[0mLets create new folder and move our file into that"
+	echo -e "\033[0;36mType 'mkdir testFolder; mv sample.txt ./testFolder'"
+	read -p "  -> " input
+
+	function success {
+		success_echo "Yeh. All right!"
+	}
+
+	function error {
+		restarting "mvExercise"
+	}
+
+	checkInput "$input" "$correct" success error
+}
+
 # loading next state
 function next {
+
 	local state=$1
 	$state
 }
@@ -156,6 +203,7 @@ function checkInput {
 
 # restarting state on error
 function restarting {
+
 	local state=$1
 	echo -e "\033[0;31mUncorrect input. Please, try again\033[0m"
 	$state
@@ -163,6 +211,7 @@ function restarting {
 
 # inital function
 function initialize {
+
 	echo -e "\033[1;35mHolla, \033[0;33m$USER!\033[1;35m Welcome to interactive shell! \033[0m"
 	echo -e "\033[1;35mDuring series of 10 tutorials you will learn basics of working with your shell"
 	echo -e "So, Lets start!  \033[0m"
@@ -176,7 +225,6 @@ function initialize {
 
 	function error {
 		CREATE_USER "$USER"
-		SHOW_ME
 		next "mkdirExercise"
 	}
 
