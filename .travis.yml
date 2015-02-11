@@ -7,10 +7,8 @@ before_script:
 
 script:
   - shellcheck shell.sh
+  - shellcheck stat.sh
+  - shellcheck helpers.sh
 
 notifications:
   email: false
-
-branches:
-  only:
-    - master
