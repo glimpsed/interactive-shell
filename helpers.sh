@@ -18,3 +18,5 @@ function error_echo {
 	echo -e "\033[0;31m$text\033[0m"
 	return 0
 }
+
+# end

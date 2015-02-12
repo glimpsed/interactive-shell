@@ -1,3 +1,5 @@
+
+
 # default params
 user="none"
 shell="unknown"
@@ -84,3 +86,5 @@ function CHECK_LOG {
 		error
 	fi
 }
+
+# end
