@@ -291,6 +291,7 @@ function next {
 	$state
 }
 
+
 # checking user input
 function checkInput {
 

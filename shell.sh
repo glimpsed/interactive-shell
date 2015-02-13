@@ -173,6 +173,29 @@ function mvExercise {
 	checkInput "$input" "$correct" success error
 }
 
+function sudoTraining {
+
+	local input
+	local correct="sudo su"
+
+	echo -e "\033[0mIf you want to run command as a super user you can use $(term_echo 'sudo') command"
+	echo -e "\033[0mLet enter a super user mode"
+	echo -e "\033[0;36mType 'sudo su'"
+	read -p "  -> " input
+
+	function success {
+		success_echo "Yeh. All right!"
+		
+	}
+
+	function error {
+		restarting "sudoTraining"
+	}
+
+	checkInput "$input" "$correct" success error
+
+}
+
 # loading next state
 function next {
 
@@ -246,6 +269,8 @@ function initialize {
 	CHECK_LOG "$USER" success error
 }
 
-initialize
+# initialize
+# 
+sudoTraining
 
 # end

@@ -19,4 +19,10 @@ function error_echo {
 	return 0
 }
 
+function term_echo {
+	local text=$1
+	echo -e "\033[1;33m$text\033[0m"
+	return 0
+}
+
 # end
