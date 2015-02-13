@@ -196,6 +196,29 @@ function sudoTraining {
 
 }
 
+function dateExercise {
+
+	local input
+	local correct="date && date +'%d/%m/%Y'"
+
+	echo -e "\033[0m $(term_echo 'date') command"
+	echo -e "\033[0mLets learn it"
+	echo -e "\033[0;36mType ' date && date +'%d/%m/%Y' '"
+	read -p "  -> " input
+
+	function success {
+		success_echo "Yeh. All right!"
+		
+	}
+
+	function error {
+		restarting "dateExercise"
+	}
+
+	checkInput "$input" "$correct" success error
+
+}
+
 # loading next state
 function next {
 
@@ -271,6 +294,6 @@ function initialize {
 
 # initialize
 # 
-sudoTraining
+dateExercise
 
 # end
