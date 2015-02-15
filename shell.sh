@@ -161,9 +161,9 @@ function mvExercise {
 
 	function success {
 		success_echo "Yeh. All right!"
-		UPDATE "finish"
+		UPDATE "sudoTraining"
 		SAVE_STAT
-		next "finish"
+		next "sudoTraining"
 	}
 
 	function error {
@@ -185,6 +185,9 @@ function sudoTraining {
 
 	function success {
 		success_echo "Yeh. All right!"
+		UPDATE "dateExercise"
+		SAVE_STAT
+		next "dateExercise"
 		
 	}
 
@@ -208,7 +211,9 @@ function dateExercise {
 
 	function success {
 		success_echo "Yeh. All right!"
-		
+		UPDATE "finish"
+		SAVE_STAT
+		next "finish"
 	}
 
 	function error {
@@ -292,8 +297,6 @@ function initialize {
 	CHECK_LOG "$USER" success error
 }
 
-# initialize
-# 
-dateExercise
+initialize
 
 # end
