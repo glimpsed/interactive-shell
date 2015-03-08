@@ -282,7 +282,7 @@ restarting() {
 initialize() {
 
 	echo -e "\033[1;35mHolla, \033[0;33m$USER!\033[1;35m Welcome to interactive shell! \033[0m"
-	echo -e "\033[1;35mDuring series of 10 tutorials you will learn basics of working with your shell"
+	echo -e "\033[1;35mDuring series of short tutorials you will learn basics of working with your shell"
 	echo -e "So, Lets start!  \033[0m"
 	echo -e "Type :q when you would like to exit script or :h for view script version  \033[0m"
 
