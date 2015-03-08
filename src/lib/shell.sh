@@ -211,7 +211,7 @@ dateExercise() {
 
 	success() {
 		success_echo "Yeh. All right!"
-		echo "$(date && date +'%d/%m/%Y')"
+		date && date +'%d/%m/%Y')
 		UPDATE "finish"
 		SAVE_STAT
 		next "finish"
