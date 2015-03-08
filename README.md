@@ -11,6 +11,6 @@ Run it easily:
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/drKraken/interactive-shell/master/interactive.sh)
 ```
-If you accidentally leave the script, don;t be afraid, the script will save all your scores and you can restart from the same stage.
+If you accidentally leave the script, don't be afraid, the script will save all your scores and you can restart from the same stage.
 
 License: MIT
