@@ -6,8 +6,8 @@ before_script:
   - sudo apt-get -y install shellcheck
 
 script:
-  - shellcheck src/shell.sh
-  - shellcheck src/helpers.sh
+  - shellcheck src/lib/shell.sh
+  - shellcheck src/lib/helpers.sh
 
 notifications:
   email: false
