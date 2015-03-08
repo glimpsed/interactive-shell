@@ -6,7 +6,7 @@ shell="unknown"
 date="none"
 
 # construct new user
-function CREATE_USER {
+CREATE_USER() {
 
 	user="$USER" 
 
@@ -24,7 +24,7 @@ function CREATE_USER {
 }
 
 # show user info
-function SHOW_ME {
+SHOW_ME() {
 
 	echo "$user"
 	echo "$date"
@@ -33,7 +33,7 @@ function SHOW_ME {
 }
 
 # update progress
-function UPDATE {
+UPDATE() {
 
 	if [ "$1" ]; then
 		progress=$1
@@ -43,7 +43,7 @@ function UPDATE {
 }
 
 # save statistic to ol file
-function SAVE_STAT {
+SAVE_STAT() {
 
 	local FILE="$HOME/loger-$user.log"
 	for f in $FILE; do
@@ -54,7 +54,7 @@ function SAVE_STAT {
 	done
 }
 
-function READ_LOG {
+READ_LOG() {
 	if [ "$1" ]; then	
 		local user=$1
 		local filename="$HOME/loger-$user.log"
@@ -73,7 +73,7 @@ function READ_LOG {
 	fi
 }
 
-function CHECK_LOG {
+CHECK_LOG() {
 
 	local user=$1
 	local success=$2
@@ -85,6 +85,11 @@ function CHECK_LOG {
 	else
 		error
 	fi
+}
+
+DELETE_LOG() {
+	local username=$1
+	rm $HOME/loger-$username.log
 }
 
 # end
