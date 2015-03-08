@@ -91,7 +91,7 @@ READ_LOG() {
 			done < "$filename"
 
 		else
-			error_echo "uncorrect user name"
+			error_echo "incorrect user name"
 		fi
 	else
 		error_echo "None for user name"
@@ -130,9 +130,9 @@ mkdirExercise() {
 
 	success() {
 		mkdir ./firstFolder
-		success_echo "\033[0;32mCongratulations! Now you create your first folder!"
-		echo "$(term_echo 'mkdir') command is used for creating folders"
-		echo "So in our case we created folder with name 'firstFolder'"
+		success_echo "\033[0;32mCongratulations! Now you created your first folder!"
+		echo "The $(term_echo 'mkdir') command is used for creating folders"
+		echo "So, in our case, we created a folder with the name 'firstFolder'"
 		UPDATE "cdExercise"
 		SAVE_STAT
 		next "cdExercise"
@@ -151,13 +151,13 @@ cdExercise() {
 	local input
 	local correct="cd firstFolder"
 
-	success_echo "Cool! We have folder lets move into in"
+	success_echo "Cool! We have a folder, let's move into it"
 	type_echo "Type 'cd firstFolder'"
 	read -p "  ->  " input;
 
 	success() {
 		cd ./firstFolder
-		success_echo "Cool. Now you in firstFolder, that you created before"
+		success_echo "Cool. Now you're in firstFolder, the one you created before"
 		UPDATE "touchExercise"
 		SAVE_STAT
 		next "touchExercise"
@@ -175,7 +175,7 @@ touchExercise() {
 	local input
 	local correct="touch sample.txt"
 
-	echo "Lets create one file in this folder"
+	echo "Let's create one file in this folder"
 	type_echo "\033[0;36mType 'touch sample.txt'"
 	read -p "  -> " input
 
@@ -200,8 +200,8 @@ rmExercise() {
 	local correct="rm sample.txt"
 
 	echo "So now you know how to create files and folders"
-	echo "Lets learn how to delete files"
-	echo "Lets delete sample.txt , that we create earlier"
+	echo "Let's learn how to delete files"
+	echo "Let's delete sample.txt , that we creates earlier"
 	type_echo "\033[0;36mType 'rm sample.txt'"
 	read -p "  -> " input
 
@@ -224,15 +224,15 @@ pwdExercise() {
 	local input
 	local correct="pwd"
 
-	echo "If you want to know in which folder you now,"
-	echo "you can type pwd command that display your current full path"
-	echo "Lets try it"
+	echo "If you want to know in which folder you're now,"
+	echo "you can type the 'pwd' command that displays your current full path."
+	echo "Let's try it."
 	type_echo "Type 'pwd'"
 	read -p "  -> " input
 
 	success() {
 		echo "Your path : $(pwd)"
-		success_echo "Nice you made it!"
+		success_echo "Nice, you did it!"
 		UPDATE "cpExercise"
 		SAVE_STAT
 		next "cpExercise"
@@ -249,7 +249,7 @@ cpExercise() {
 	local input
 	local correct="cp sample.txt sample-copy.txt"
 
-	echo "Lets try cp command,"
+	echo "Let's try the 'cp' command."
 	type_echo "Type 'cp sample.txt sample-copy.txt'"
 	read -p "  -> " input
 
@@ -273,8 +273,8 @@ mvExercise() {
 	local input
 	local correct="mkdir testFolder; mv sample.txt ./testFolder"
 
-	echo "Lets try $(term_echo 'mv') command"
-	echo "Lets create new folder and move our file into that"
+	echo "Let's try the $(term_echo 'mv') command."
+	echo "Let's create a new folder and move our file into it."
 	type_echo "Type 'mkdir testFolder; mv sample.txt ./testFolder'"
 	read -p "  -> " input
 
@@ -298,13 +298,13 @@ sudoTraining() {
 	local input
 	local correct="sudo su"
 
-	echo "If you want to run command as a super user you can use $(term_echo 'sudo') command"
-	echo "Let enter a super user mode"
+	echo "If you want to run command as a super user, you can use the $(term_echo 'sudo') command."
+	echo "Let's enter a super user mode."
 	type_echo "Type 'sudo su'"
 	read -p "  -> " input
 
 	success() {
-		success_echo "Yeh. All right!"
+		success_echo "Yeah. All right!"
 		UPDATE "dateExercise"
 		SAVE_STAT
 		next "dateExercise"
@@ -324,13 +324,13 @@ dateExercise() {
 	local input
 	local correct="date && date +'%d/%m/%Y'"
 
-	echo "$(term_echo 'date') command is used for operate different date formats"
+	echo "The $(term_echo 'date') command is used for working with different date formats."
 	echo "Lets learn it"
 	type_echo "Type: date && date +'%d/%m/%Y'"
 	read -p "  -> " input
 
 	success() {
-		success_echo "Yeh. All right!"
+		success_echo "Yeah. All right!"
 		date && date +'%d/%m/%Y'
 		UPDATE "finish"
 		SAVE_STAT
@@ -349,15 +349,15 @@ lsTraining() {
 	local input
 	local correct="ls ."
 
-	echo "$(term_echo 'ls') command is used for showing which files current directory have"
-	echo "Lets try it"
+	echo "The $(term_echo 'ls') command is used for showing which files the current directory cotnains."
+	echo "Let's try it'"
 	type_echo "Type: ls ."
 	read -p "  -> " input
 
 	success() {
-		success_echo "Yeh. All right!"
+		success_echo "Yeah. All right!"
 		ls .
-		echo "If you want to show hidden files you can use flag -a like ls -a . This command will show files with hidden files too"
+		echo "If you want to show hidden files you can use flag -a like ls -a . This command will also show hidden files."
 		UPDATE "lsTraining"
 		SAVE_STAT
 		next "psTraining"
@@ -374,7 +374,7 @@ psTraining() {
 	local input
 	local correct="ps"
 
-	echo "$(term_echo 'ps') command display a list of running processes"
+	echo "The $(term_echo 'ps') command displays a list of running processes."
 	echo "Lets try"
 	type_echo "Type: ps"
 	read -p "  -> " input
@@ -398,16 +398,16 @@ nanoTraining() {
 	local input
 	local correct="nano"
 
-	echo "Unix have a lot of terminal text editors like $(term_echo 'nano')"
-	echo "Lets discover it."
+	echo "UNIX has a lot of terminal text editors like $(term_echo 'nano')"
+	echo "Let's discover it."
 	type_echo "Type: nano"
-	type_echo "When you want to leave edit simple press $(term_echo 'Ctrl+X') . Than you can save or not your changes."
+	type_echo "When you want to leave edit, just press $(term_echo 'Ctrl+X') . Than you can choose to save your changes."
 	read -p "  -> " input
 
 	success() {
 		success_echo "Cool!"
 		nano
-		success_echo "You made it!"
+		success_echo "You did it!"
 		UPDATE "nanoTraining"
 		SAVE_STAT
 		next "finish"
@@ -469,7 +469,7 @@ finish() {
 restarting() {
 
 	local state=$1
-	error_echo "\033[0;31mUncorrect input. Please, try again\033[0m"
+	error_echo "\033[0;31mIncorrect input. Please, try again\033[0m"
 	$state
 }
 
@@ -477,13 +477,13 @@ restarting() {
 initialize() {
 
 	echo -e "\033[1;35mHolla, \033[0;33m$USER!\033[1;35m Welcome to interactive shell! \033[0m"
-	echo -e "\033[1;35mDuring series of short tutorials you will learn basics of working with your shell"
-	echo -e "So, Lets start!  \033[0m"
+	echo -e "\033[1;35mDuring this short tutorial, you will learn the basics of working with a UNIX shell."
+	echo -e "So, let's start!  \033[0m"
 	echo -e "Type :q when you would like to exit script or :h for view script version  \033[0m"
 
 	success() {
 		local state=$1
-		success_echo "Resuming latest game state ... "
+		success_echo "Resuming last game state ... "
 		next "$state"
 	}
 
