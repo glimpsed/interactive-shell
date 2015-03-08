@@ -10,7 +10,7 @@ mkdirExercise() {
 	read -p "  -> " input
 
 	success() {
-		# mkdir ./firstFolder
+		mkdir ./firstFolder
 		success_echo "\033[0;32mCongratulations! Now you create your first folder!"
 		echo "$(term_echo 'mkdir') command is used for creating folders"
 		echo "So in our case we created folder with name 'firstFolder'"
@@ -37,7 +37,7 @@ cdExercise() {
 	read -p "  ->  " input;
 
 	success() {
-		# cd ./firstFolder
+		cd ./firstFolder
 		success_echo "Cool. Now you in firstFolder, that you created before"
 		UPDATE "touchExercise"
 		SAVE_STAT
@@ -62,7 +62,7 @@ touchExercise() {
 
 	success() {
 		success_echo "Cool"
-		# touch ./sample.txt
+		touch ./sample.txt
 		UPDATE "rmExercise"
 		SAVE_STAT
 		next "rmExercise"
@@ -117,7 +117,6 @@ pwdExercise() {
 		UPDATE "cpExercise"
 		SAVE_STAT
 		next "cpExercise"
-		# rm ./sample.txt
 	}
 	error() {
 		restarting "pwdExercise"
@@ -136,6 +135,7 @@ cpExercise() {
 	read -p "  -> " input
 
 	success() {
+		cp sample.txt sample-copy.txt
 		success_echo "Yeh. All right!"
 		UPDATE "mvExercise"
 		SAVE_STAT
@@ -160,6 +160,7 @@ mvExercise() {
 	read -p "  -> " input
 
 	success() {
+		mkdir ./testFolder; mv sample.txt ./testFolder
 		success_echo "Yeh. All right!"
 		UPDATE "sudoTraining"
 		SAVE_STAT
