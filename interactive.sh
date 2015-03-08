@@ -1,32 +1,25 @@
 
 # print success helper
-# @arg [string] text
-# @return 0
-
-function success_echo {
+success_echo() {
 	local text=$1
 	echo -e "\033[0;32m$text\033[0m"
-	return 0
 }
 
 # print error message helper
-# @arg [string] text
-# @return 0
-
-function error_echo {
+error_echo() {
 	local text=$1
 	echo -e "\033[0;31m$text\033[0m"
-	return 0
 }
 
 # print term message helper
-# @arg [string] text
-# @return 0
-
-function term_echo {
+term_echo() {
 	local text=$1
 	echo -e "\033[1;33m$text\033[0m"
-	return 0
+}
+
+type_echo() {
+	local text=$1
+	echo -e "\033[0;36m$text\033[0m"
 }
 
 # end
@@ -38,7 +31,7 @@ shell="unknown"
 date="none"
 
 # construct new user
-function CREATE_USER {
+CREATE_USER() {
 
 	user="$USER" 
 
@@ -56,7 +49,7 @@ function CREATE_USER {
 }
 
 # show user info
-function SHOW_ME {
+SHOW_ME() {
 
 	echo "$user"
 	echo "$date"
@@ -65,7 +58,7 @@ function SHOW_ME {
 }
 
 # update progress
-function UPDATE {
+UPDATE() {
 
 	if [ "$1" ]; then
 		progress=$1
@@ -75,9 +68,9 @@ function UPDATE {
 }
 
 # save statistic to ol file
-function SAVE_STAT {
+SAVE_STAT() {
 
-	local FILE="$HOME/loger-$user.log"
+	local FILE="$HOME/.loger-$user.log"
 	for f in $FILE; do
 		echo "$date" > $FILE
 		echo "$user" >> "$FILE"
@@ -86,10 +79,10 @@ function SAVE_STAT {
 	done
 }
 
-function READ_LOG {
+READ_LOG() {
 	if [ "$1" ]; then	
 		local user=$1
-		local filename="$HOME/loger-$user.log"
+		local filename="$HOME/.loger-$user.log"
 		if [ -e "$filename" ]; then		
 			while read -r line
 			do
@@ -105,13 +98,13 @@ function READ_LOG {
 	fi
 }
 
-function CHECK_LOG {
+CHECK_LOG() {
 
 	local user=$1
 	local success=$2
 	local error=$3
 
-	if [ -e "$HOME/loger-$user.log" ]; then
+	if [ -e "$HOME/.loger-$user.log" ]; then
 		READ_LOG "$user"
 		success "$LOG_READ"
 	else
@@ -119,27 +112,32 @@ function CHECK_LOG {
 	fi
 }
 
+DELETE_LOG() {
+	local username=$1
+	rm $HOME/.loger-$username.log
+}
+
 # end
 
 # exrcise for learning mkdir
-function mkdirExercise {
+mkdirExercise() {
 
 	local input
 	local correct="mkdir firstFolder"
 
-	echo -e "\033[0;36mType 'mkdir firstFolder'"
+	type_echo "Type 'mkdir firstFolder'"
 	read -p "  -> " input
 
-	function success {
+	success() {
 		# mkdir ./firstFolder
 		success_echo "\033[0;32mCongratulations! Now you create your first folder!"
-		echo -e "$(term_echo 'mkdir') command is used for creating folders"
-		echo -e "So in our case we created folder with name 'firstFolder'"
+		echo "$(term_echo 'mkdir') command is used for creating folders"
+		echo "So in our case we created folder with name 'firstFolder'"
 		UPDATE "cdExercise"
 		SAVE_STAT
 		next "cdExercise"
 	}
-	function error {
+	error() {
 		restarting "mkdirExercise"
 	}
 
@@ -148,23 +146,23 @@ function mkdirExercise {
 }
 
 # exercise for learning cd
-function cdExercise {
+cdExercise() {
 
 	local input
 	local correct="cd firstFolder"
 
-	echo -e "\033[0mCool! We have folder lets move into in"
-	echo -e "\033[0;36mType 'cd firstFolder'"
+	success_echo "Cool! We have folder lets move into in"
+	type_echo "Type 'cd firstFolder'"
 	read -p "  ->  " input;
 
-	function success {
+	success() {
 		# cd ./firstFolder
-		echo -e "\033[0;32mCool. Now you in firstFolder, that you created before"
+		success_echo "Cool. Now you in firstFolder, that you created before"
 		UPDATE "touchExercise"
 		SAVE_STAT
 		next "touchExercise"
 	}
-	function error {
+	error() {
 		restarting "cdExercise"
 	}
 
@@ -172,23 +170,23 @@ function cdExercise {
 }
 
 # exercise for learning touch command
-function touchExercise {
+touchExercise() {
 
 	local input
 	local correct="touch sample.txt"
 
-	echo -e "\033[0mLets create one file in this folder"
-	echo -e "\033[0;36mType 'touch sample.txt'"
+	echo "Lets create one file in this folder"
+	type_echo "\033[0;36mType 'touch sample.txt'"
 	read -p "  -> " input
 
-	function success {
-		echo -e "\033[0;32mCool"
+	success() {
+		success_echo "Cool"
 		# touch ./sample.txt
 		UPDATE "rmExercise"
 		SAVE_STAT
 		next "rmExercise"
 	}
-	function error {
+	error() {
 		restarting "touchExercise"
 	}
 
@@ -196,43 +194,43 @@ function touchExercise {
 }
 
 # pwd exercise
-function rmExercise {
+rmExercise() {
 
 	local input
 	local correct="rm sample.txt"
 
-	echo -e "\033[0mSo now you know how to create files and folders"
-	echo -e "\033[0mLets learn how to delete files"
-	echo -e "\033[0mLets delete sample.txt , that we create earlier"
-	echo -e "\033[0;36mType 'rm sample.txt'"
+	echo "So now you know how to create files and folders"
+	echo "Lets learn how to delete files"
+	echo "Lets delete sample.txt , that we create earlier"
+	type_echo "\033[0;36mType 'rm sample.txt'"
 	read -p "  -> " input
 
-	function success {
-		echo -e "\033[0;32mCool. You made it!"
+	success() {
+		success_echo "Cool. You made it!"
 		# rm ./sample.txt
 		UPDATE "pwdExercise"
 		SAVE_STAT
 		next "pwdExercise"
 	}
-	function error {
+	error() {
 		restarting "rmExercise"
 	}
 
 	checkInput "$input" "$correct" success error
 }
 
-function pwdExercise {
+pwdExercise() {
 
 	local input
 	local correct="pwd"
 
-	echo -e "\033[0mIf you want to know in which folder you now,"
-	echo -e "\033[0myou can type pwd command that display your current full path"
-	echo -e "\033[0mLets try it"
-	echo -e "\033[0;36mType 'pwd'"
+	echo "If you want to know in which folder you now,"
+	echo "you can type pwd command that display your current full path"
+	echo "Lets try it"
+	type_echo "Type 'pwd'"
 	read -p "  -> " input
 
-	function success {
+	success() {
 		echo "Your path : $(pwd)"
 		success_echo "Nice you made it!"
 		UPDATE "cpExercise"
@@ -240,71 +238,71 @@ function pwdExercise {
 		next "cpExercise"
 		# rm ./sample.txt
 	}
-	function error {
+	error() {
 		restarting "pwdExercise"
 	}
 
 	checkInput "$input" "$correct" success error
 }
 
-function cpExercise {
+cpExercise() {
 
 	local input
 	local correct="cp sample.txt sample-copy.txt"
 
-	echo -e "\033[0mLets try cp command,"
-	echo -e "\033[0;36mType 'cp sample.txt sample-copy.txt'"
+	echo "Lets try cp command,"
+	type_echo "Type 'cp sample.txt sample-copy.txt'"
 	read -p "  -> " input
 
-	function success {
+	success() {
 		success_echo "Yeh. All right!"
 		UPDATE "mvExercise"
 		SAVE_STAT
 		next "mvExercise"
 	}
 
-	function error {
+	error() {
 		restarting "cpExercise"
 	}
 
 	checkInput "$input" "$correct" success error
 }
 
-function mvExercise {
+mvExercise() {
 
 	local input
 	local correct="mkdir testFolder; mv sample.txt ./testFolder"
 
-	echo -e "\033[0mLets try mv command"
-	echo -e "\033[0mLets create new folder and move our file into that"
-	echo -e "\033[0;36mType 'mkdir testFolder; mv sample.txt ./testFolder'"
+	echo "Lets try $(term_echo 'mv') command"
+	echo "Lets create new folder and move our file into that"
+	type_echo "Type 'mkdir testFolder; mv sample.txt ./testFolder'"
 	read -p "  -> " input
 
-	function success {
+	success() {
 		success_echo "Yeh. All right!"
 		UPDATE "sudoTraining"
 		SAVE_STAT
 		next "sudoTraining"
 	}
 
-	function error {
+	error() {
 		restarting "mvExercise"
 	}
 
 	checkInput "$input" "$correct" success error
 }
 
-function sudoTraining {
+sudoTraining() {
 
 	local input
 	local correct="sudo su"
 
-	echo -e "\033[0mIf you want to run command as a super user you can use $(term_echo 'sudo') command"
-	echo -e "\033[0mLet enter a super user mode"
-	echo -e "\033[0;36mType 'sudo su'"
+	echo "If you want to run command as a super user you can use $(term_echo 'sudo') command"
+	echo "Let enter a super user mode"
+	type_echo "Type 'sudo su'"
 	read -p "  -> " input
 
-	function success {
+	success() {
 		success_echo "Yeh. All right!"
 		UPDATE "dateExercise"
 		SAVE_STAT
@@ -312,7 +310,7 @@ function sudoTraining {
 		
 	}
 
-	function error {
+	error() {
 		restarting "sudoTraining"
 	}
 
@@ -320,24 +318,25 @@ function sudoTraining {
 
 }
 
-function dateExercise {
+dateExercise() {
 
 	local input
 	local correct="date && date +'%d/%m/%Y'"
 
-	echo -e "\033[0m $(term_echo 'date') command"
-	echo -e "\033[0mLets learn it"
-	echo -e "\033[0;36mType ' date && date +'%d/%m/%Y' '"
+	echo "$(term_echo 'date') command is used for operate different date formats"
+	echo "Lets learn it"
+	type_echo "Type: date && date +'%d/%m/%Y'"
 	read -p "  -> " input
 
-	function success {
+	success() {
 		success_echo "Yeh. All right!"
+		echo "$(date && date +'%d/%m/%Y')"
 		UPDATE "finish"
 		SAVE_STAT
 		next "finish"
 	}
 
-	function error {
+	error() {
 		restarting "dateExercise"
 	}
 
@@ -346,14 +345,14 @@ function dateExercise {
 }
 
 # loading next state
-function next {
+next() {
 
 	local state=$1
 	$state
 }
 
 # checking user input
-function checkInput {
+checkInput() {
 
 	local input=$1
 	local success=$3
@@ -373,44 +372,46 @@ function checkInput {
 	fi
 }
 
-function finish {
+finish() {
 
 	local input
 
-	success_echo "End of game... type :restart  for restarting game"
+	success_echo "End of game... type $(term_echo ':restart') $(success_echo 'for restarting game.')"
+	error_echo "Note that all scores will be reset!"
 	read -p "  -> " input
 
 	if [ "$input" = ":restart" ]; then
-		success_echo "restarting..."
+		success_echo "restarting game..."
+		DELETE_LOG "$USER";
 		next "initialize"
 	else
-		error_echo "some errors"
+		success_echo "exiting..."
 	fi
 }
 
 # restarting state on error
-function restarting {
+restarting() {
 
 	local state=$1
-	echo -e "\033[0;31mUncorrect input. Please, try again\033[0m"
+	error_echo "\033[0;31mUncorrect input. Please, try again\033[0m"
 	$state
 }
 
 # inital function
-function initialize {
+initialize() {
 
 	echo -e "\033[1;35mHolla, \033[0;33m$USER!\033[1;35m Welcome to interactive shell! \033[0m"
 	echo -e "\033[1;35mDuring series of 10 tutorials you will learn basics of working with your shell"
 	echo -e "So, Lets start!  \033[0m"
 	echo -e "Type :q when you would like to exit script or :h for view script version  \033[0m"
 
-	function success {
+	success() {
 		local state=$1
 		success_echo "Resuming latest game state ... "
 		next "$state"
 	}
 
-	function error {
+	error() {
 		CREATE_USER "$USER"
 		next "mkdirExercise"
 	}
