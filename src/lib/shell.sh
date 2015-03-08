@@ -214,7 +214,7 @@ dateExercise() {
 		date && date +'%d/%m/%Y'
 		UPDATE "finish"
 		SAVE_STAT
-		next "finish"
+		next "lsTraining"
 	}
 
 	error() {
@@ -223,6 +223,81 @@ dateExercise() {
 
 	checkInput "$input" "$correct" success error
 
+}
+
+lsTraining() {
+	local input
+	local correct="ls ."
+
+	echo "$(term_echo 'ls') command is used for showing which files current directory have"
+	echo "Lets try it"
+	type_echo "Type: ls ."
+	read -p "  -> " input
+
+	success() {
+		success_echo "Yeh. All right!"
+		ls .
+		echo "If you want to show hidden files you can use flag -a like ls -a . This command will show files with hidden files too"
+		UPDATE "lsTraining"
+		SAVE_STAT
+		next "psTraining"
+	}
+
+	error() {
+		restarting "lsTraining"
+	}
+
+	checkInput "$input" "$correct" success error
+}
+
+psTraining() {
+	local input
+	local correct="ps"
+
+	echo "$(term_echo 'ps') command display a list of running processes"
+	echo "Lets try"
+	type_echo "Type: ps"
+	read -p "  -> " input
+
+	success() {
+		success_echo "Cool!"
+		ps
+		UPDATE "psTraining"
+		SAVE_STAT
+		next "nanoTraining"
+	}
+
+	error() {
+		restarting "psTraining"
+	}
+
+	checkInput "$input" "$correct" success error
+}
+
+nanoTraining() {
+	local input
+	local correct="nano"
+
+	echo "Unix have a lot of terminal text editors like $(term_echo 'nano')"
+	echo "Lets discover it."
+	type_echo "Type: nano"
+	type_echo "When you want to leave edit simple press $(term_echo 'Ctrl+X') . Than you can save or not your changes."
+	read -p "  -> " input
+
+	success() {
+		success_echo "Cool!"
+		nano
+		success_echo "You made it!"
+		UPDATE "nanoTraining"
+		SAVE_STAT
+		next "finish"
+	}
+
+	error() {
+		restarting "nanoTraining"
+	}
+
+	checkInput "$input" "$correct" success error
 }
 
 # loading next state
