@@ -17,4 +17,9 @@ term_echo() {
 	echo -e "\033[1;33m$text\033[0m"
 }
 
+type_echo() {
+	local text=$1
+	echo -e "\033[0;36m$text\033[0m"
+}
+
 # end
