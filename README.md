@@ -1,7 +1,5 @@
 # Interactive-shell
 
-<img src='http://i61.tinypic.com/n2iwpc.png' width='500' height='290'/>
-
 Want to learn basic unix cmds quickly? Prefer learning by doing? So, its for you.
 
 Follow easy exercises and learn your terminal, by real typing valid commands.
